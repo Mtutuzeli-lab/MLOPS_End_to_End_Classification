@@ -1,0 +1,7 @@
+README.md
+setup.py
+MLOps_End_to_End_Classification.egg-info/PKG-INFO
+MLOps_End_to_End_Classification.egg-info/SOURCES.txt
+MLOps_End_to_End_Classification.egg-info/dependency_links.txt
+MLOps_End_to_End_Classification.egg-info/requires.txt
+MLOps_End_to_End_Classification.egg-info/top_level.txt
