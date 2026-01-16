@@ -3,5 +3,9 @@ pandas
 numpy
 certifi
 pymongo
+ipykernel
+seaborn
+matplotlib
+plotly
 
 ##-e .
