@@ -7,5 +7,7 @@ ipykernel
 seaborn
 matplotlib
 plotly
+scikit-learn
+imbalanced-learn
 
 ##-e .
