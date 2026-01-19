@@ -10,4 +10,9 @@ plotly
 scikit-learn
 imbalanced-learn
 
+# BigQuery dependencies
+google-cloud-bigquery
+pandas-gbq
+db-dtypes
+
 ##-e .

@@ -1,2 +1,14 @@
 venv
 .env
+
+# BigQuery and GCP credentials
+config/service-account-key.json
+config/*.json
+**/service-account*.json
+*.json
+
+# Additional security
+.credentials/
+secrets/
+*.pem
+*.key
