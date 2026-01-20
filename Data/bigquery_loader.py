@@ -9,7 +9,7 @@ from google.cloud import bigquery
 # Configuration
 PROJECT_ID = "mlops-churn-prediction-484819"
 DATASET_ID = "telco_churn_dataset"
-CREDENTIALS_PATH = "../config/service-account-key.json"
+CREDENTIALS_PATH = os.path.join(os.path.dirname(__file__), "..", "config", "service-account-key.json")
 
 
 def get_bigquery_client():
