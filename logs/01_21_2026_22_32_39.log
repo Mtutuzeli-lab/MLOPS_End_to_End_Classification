@@ -1,0 +1,56 @@
+[ 2026-01-21 22:32:39,997 ] 39 root - INFO - ================================================================================
+[ 2026-01-21 22:32:39,998 ] 40 root - INFO - STARTING TRAINING PIPELINE
+[ 2026-01-21 22:32:39,998 ] 41 root - INFO - ================================================================================
+[ 2026-01-21 22:32:39,998 ] 47 root - INFO - 
+================================================================================
+[ 2026-01-21 22:32:39,998 ] 48 root - INFO - STEP 1: DATA INGESTION
+[ 2026-01-21 22:32:39,998 ] 49 root - INFO - ================================================================================
+[ 2026-01-21 22:32:39,998 ] 46 root - INFO - Data Ingestion Component initialized
+[ 2026-01-21 22:32:39,998 ] 200 root - INFO - ==================================================
+[ 2026-01-21 22:32:39,998 ] 201 root - INFO - Data Ingestion Process Started
+[ 2026-01-21 22:32:39,998 ] 202 root - INFO - ==================================================
+[ 2026-01-21 22:32:39,998 ] 56 root - INFO - Starting data loading from BigQuery
+[ 2026-01-21 22:32:55,628 ] 64 root - INFO - Data loaded successfully from BigQuery. Shape: (21096, 20)
+[ 2026-01-21 22:32:55,628 ] 65 root - INFO - Columns: ['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure', 'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod', 'MonthlyCharges', 'TotalCharges', 'Churn']
+[ 2026-01-21 22:32:55,628 ] 168 root - INFO - Starting data validation
+[ 2026-01-21 22:32:55,630 ] 179 root - INFO - Number of rows: 21096
+[ 2026-01-21 22:32:55,630 ] 180 root - INFO - Number of columns: 20
+[ 2026-01-21 22:32:55,641 ] 181 root - INFO - Missing values:
+gender              0
+SeniorCitizen       0
+Partner             0
+Dependents          0
+tenure              0
+PhoneService        0
+MultipleLines       0
+InternetService     0
+OnlineSecurity      0
+OnlineBackup        0
+DeviceProtection    0
+TechSupport         0
+StreamingTV         0
+StreamingMovies     0
+Contract            0
+PaperlessBilling    0
+PaymentMethod       0
+MonthlyCharges      0
+TotalCharges        0
+Churn               0
+dtype: int64
+[ 2026-01-21 22:32:55,648 ] 182 root - INFO - Target distribution:
+Churn
+0    15489
+1     5607
+Name: count, dtype: Int64
+[ 2026-01-21 22:32:55,649 ] 184 root - INFO - Data validation completed successfully
+[ 2026-01-21 22:32:55,750 ] 90 root - INFO - Raw data saved at: artifacts\raw_data.csv
+[ 2026-01-21 22:32:55,750 ] 109 root - INFO - Starting train-test split
+[ 2026-01-21 22:32:55,772 ] 119 root - INFO - Train set shape: (16876, 20)
+[ 2026-01-21 22:32:55,772 ] 120 root - INFO - Test set shape: (4220, 20)
+[ 2026-01-21 22:32:55,852 ] 145 root - INFO - Train data saved at: artifacts\train.csv
+[ 2026-01-21 22:32:55,872 ] 149 root - INFO - Test data saved at: artifacts\test.csv
+[ 2026-01-21 22:32:55,872 ] 219 root - INFO - ==================================================
+[ 2026-01-21 22:32:55,872 ] 220 root - INFO - Data Ingestion Process Completed Successfully
+[ 2026-01-21 22:32:55,872 ] 221 root - INFO - ==================================================
+[ 2026-01-21 22:32:55,872 ] 55 root - INFO - \u2705 Data Ingestion completed
+[ 2026-01-21 22:32:55,872 ] 140 root - ERROR - \u274c Training pipeline failed: 'tuple' object has no attribute 'trained_file_path'

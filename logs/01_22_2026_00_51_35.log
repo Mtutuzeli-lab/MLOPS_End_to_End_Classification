@@ -1,0 +1,99 @@
+[ 2026-01-22 00:51:40,261 ] 39 root - INFO - ================================================================================
+[ 2026-01-22 00:51:40,261 ] 40 root - INFO - STARTING TRAINING PIPELINE
+[ 2026-01-22 00:51:40,261 ] 41 root - INFO - ================================================================================
+[ 2026-01-22 00:51:40,261 ] 47 root - INFO - 
+================================================================================
+[ 2026-01-22 00:51:40,261 ] 48 root - INFO - STEP 1: DATA INGESTION
+[ 2026-01-22 00:51:40,262 ] 49 root - INFO - ================================================================================
+[ 2026-01-22 00:51:40,262 ] 47 root - INFO - Data Ingestion Component initialized
+[ 2026-01-22 00:51:40,262 ] 201 root - INFO - ==================================================
+[ 2026-01-22 00:51:40,262 ] 202 root - INFO - Data Ingestion Process Started
+[ 2026-01-22 00:51:40,262 ] 203 root - INFO - ==================================================
+[ 2026-01-22 00:51:40,262 ] 57 root - INFO - Starting data loading from BigQuery
+[ 2026-01-22 00:51:51,243 ] 65 root - INFO - Data loaded successfully from BigQuery. Shape: (21096, 20)
+[ 2026-01-22 00:51:51,244 ] 66 root - INFO - Columns: ['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure', 'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod', 'MonthlyCharges', 'TotalCharges', 'Churn']
+[ 2026-01-22 00:51:51,244 ] 169 root - INFO - Starting data validation
+[ 2026-01-22 00:51:51,244 ] 180 root - INFO - Number of rows: 21096
+[ 2026-01-22 00:51:51,244 ] 181 root - INFO - Number of columns: 20
+[ 2026-01-22 00:51:51,247 ] 182 root - INFO - Missing values:
+gender              0
+SeniorCitizen       0
+Partner             0
+Dependents          0
+tenure              0
+PhoneService        0
+MultipleLines       0
+InternetService     0
+OnlineSecurity      0
+OnlineBackup        0
+DeviceProtection    0
+TechSupport         0
+StreamingTV         0
+StreamingMovies     0
+Contract            0
+PaperlessBilling    0
+PaymentMethod       0
+MonthlyCharges      0
+TotalCharges        0
+Churn               0
+dtype: int64
+[ 2026-01-22 00:51:51,249 ] 183 root - INFO - Target distribution:
+Churn
+0    15489
+1     5607
+Name: count, dtype: Int64
+[ 2026-01-22 00:51:51,249 ] 185 root - INFO - Data validation completed successfully
+[ 2026-01-22 00:51:51,414 ] 91 root - INFO - Raw data saved at: artifacts\raw_data.csv
+[ 2026-01-22 00:51:51,414 ] 110 root - INFO - Starting train-test split
+[ 2026-01-22 00:51:51,442 ] 120 root - INFO - Train set shape: (16876, 20)
+[ 2026-01-22 00:51:51,442 ] 121 root - INFO - Test set shape: (4220, 20)
+[ 2026-01-22 00:51:51,557 ] 146 root - INFO - Train data saved at: artifacts\train.csv
+[ 2026-01-22 00:51:51,590 ] 150 root - INFO - Test data saved at: artifacts\test.csv
+[ 2026-01-22 00:51:51,590 ] 220 root - INFO - ==================================================
+[ 2026-01-22 00:51:51,590 ] 221 root - INFO - Data Ingestion Process Completed Successfully
+[ 2026-01-22 00:51:51,590 ] 222 root - INFO - ==================================================
+[ 2026-01-22 00:51:51,591 ] 55 root - INFO - \u2705 Data Ingestion completed
+[ 2026-01-22 00:51:51,591 ] 56 root - INFO -    Train file: artifacts\train.csv
+[ 2026-01-22 00:51:51,591 ] 57 root - INFO -    Test file: artifacts\test.csv
+[ 2026-01-22 00:51:51,591 ] 60 root - INFO - 
+================================================================================
+[ 2026-01-22 00:51:51,591 ] 61 root - INFO - STEP 2: DATA VALIDATION
+[ 2026-01-22 00:51:51,591 ] 62 root - INFO - ================================================================================
+[ 2026-01-22 00:51:51,591 ] 78 root - INFO - Data Validation Component initialized
+[ 2026-01-22 00:51:51,591 ] 236 root - INFO - Entered initiate_data_validation method
+[ 2026-01-22 00:51:51,591 ] 242 root - INFO - Reading train data from: artifacts\train.csv
+[ 2026-01-22 00:51:51,672 ] 245 root - INFO - Reading test data from: artifacts\test.csv
+[ 2026-01-22 00:51:51,712 ] 248 root - INFO - Train data shape: (16876, 20)
+[ 2026-01-22 00:51:51,713 ] 249 root - INFO - Test data shape: (4220, 20)
+[ 2026-01-22 00:51:51,713 ] 110 root - INFO - Number of columns: 20
+[ 2026-01-22 00:51:51,713 ] 110 root - INFO - Number of columns: 20
+[ 2026-01-22 00:51:51,713 ] 198 root - INFO - Base columns: ['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure', 'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod', 'MonthlyCharges', 'TotalCharges', 'Churn']
+[ 2026-01-22 00:51:51,713 ] 199 root - INFO - Current columns: ['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure', 'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod', 'MonthlyCharges', 'TotalCharges', 'Churn']
+[ 2026-01-22 00:51:51,714 ] 212 root - INFO - All required columns are present
+[ 2026-01-22 00:51:51,714 ] 275 root - INFO - Target column 'Churn' found in both datasets
+[ 2026-01-22 00:51:51,714 ] 144 root - INFO - Starting data drift detection
+[ 2026-01-22 00:51:51,719 ] 170 root - INFO - No drift in column: SeniorCitizen (p-value: 0.9996)
+[ 2026-01-22 00:51:51,725 ] 170 root - INFO - No drift in column: tenure (p-value: 0.8670)
+[ 2026-01-22 00:51:51,731 ] 170 root - INFO - No drift in column: MonthlyCharges (p-value: 0.9791)
+[ 2026-01-22 00:51:51,735 ] 170 root - INFO - No drift in column: TotalCharges (p-value: 0.9995)
+[ 2026-01-22 00:51:51,740 ] 170 root - INFO - No drift in column: Churn (p-value: 1.0000)
+[ 2026-01-22 00:51:51,740 ] 173 root - INFO - No significant data drift detected
+[ 2026-01-22 00:51:51,744 ] 131 root - INFO - YAML file saved successfully at: artifacts\01_22_2026_00_51_35\data_validation\drift_report\report.yaml
+[ 2026-01-22 00:51:51,744 ] 289 root - INFO - Drift report saved at: artifacts\01_22_2026_00_51_35\data_validation\drift_report\report.yaml
+[ 2026-01-22 00:51:51,745 ] 300 root - INFO - Validation passed - saving valid data files
+[ 2026-01-22 00:51:51,902 ] 347 root - INFO - Data validation completed successfully
+[ 2026-01-22 00:51:51,902 ] 348 root - INFO - Validation Artifact: DataValidationArtifact(validation_status=True, valid_train_file_path='artifacts\\01_22_2026_00_51_35\\data_validation\\validated\\train.csv', valid_test_file_path='artifacts\\01_22_2026_00_51_35\\data_validation\\validated\\test.csv', invalid_train_file_path='artifacts\\01_22_2026_00_51_35\\data_validation\\invalid\\train.csv', invalid_test_file_path='artifacts\\01_22_2026_00_51_35\\data_validation\\invalid\\test.csv', drift_report_file_path='artifacts\\01_22_2026_00_51_35\\data_validation\\drift_report\\report.yaml')
+[ 2026-01-22 00:51:51,903 ] 71 root - INFO - \u2705 Data Validation completed
+[ 2026-01-22 00:51:51,903 ] 72 root - INFO -    Validation Status: True
+[ 2026-01-22 00:51:51,903 ] 73 root - INFO -    Valid train file: artifacts\01_22_2026_00_51_35\data_validation\validated\train.csv
+[ 2026-01-22 00:51:51,904 ] 74 root - INFO -    Drift report: artifacts\01_22_2026_00_51_35\data_validation\drift_report\report.yaml
+[ 2026-01-22 00:51:51,904 ] 77 root - INFO - 
+================================================================================
+[ 2026-01-22 00:51:51,904 ] 78 root - INFO - STEP 3: DATA TRANSFORMATION
+[ 2026-01-22 00:51:51,904 ] 79 root - INFO - ================================================================================
+[ 2026-01-22 00:51:51,904 ] 73 root - INFO - Data Transformation Component initialized
+[ 2026-01-22 00:51:51,904 ] 172 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2026-01-22 00:51:51,904 ] 175 root - INFO - Starting data transformation
+[ 2026-01-22 00:51:52,033 ] 185 root - INFO - Train data shape: (16876, 20)
+[ 2026-01-22 00:51:52,033 ] 186 root - INFO - Test data shape: (4220, 20)
+[ 2026-01-22 00:51:52,034 ] 140 root - ERROR - \u274c Training pipeline failed: Error occurred in python script name [C:\Users\mtutu\MLOps_End_to_End_Classification\Networksecurity\Components\data_transformation.py] line number [189] error message [Cannot specify both 'axis' and 'index'/'columns']

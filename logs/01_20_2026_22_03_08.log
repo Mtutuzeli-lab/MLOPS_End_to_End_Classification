@@ -1,0 +1,7 @@
+[ 2026-01-20 22:03:08,106 ] 46 root - INFO - Data Ingestion Component initialized
+[ 2026-01-20 22:03:08,106 ] 200 root - INFO - ==================================================
+[ 2026-01-20 22:03:08,106 ] 201 root - INFO - Data Ingestion Process Started
+[ 2026-01-20 22:03:08,107 ] 202 root - INFO - ==================================================
+[ 2026-01-20 22:03:08,107 ] 56 root - INFO - Starting data loading from BigQuery
+[ 2026-01-20 22:03:16,030 ] 70 root - ERROR - Error occurred while loading data from BigQuery
+[ 2026-01-20 22:03:16,030 ] 226 root - ERROR - Error occurred in data ingestion process

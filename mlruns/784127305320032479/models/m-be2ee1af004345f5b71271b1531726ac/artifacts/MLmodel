@@ -1,0 +1,22 @@
+artifact_path: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/784127305320032479/models/m-be2ee1af004345f5b71271b1531726ac/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.5
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+mlflow_version: 3.3.2
+model_id: m-be2ee1af004345f5b71271b1531726ac
+model_size_bytes: 42787252
+model_uuid: m-be2ee1af004345f5b71271b1531726ac
+prompts: null
+run_id: e3ec15845c8e4260a8ec0b56ea4dbfa7
+utc_time_created: '2026-01-21 22:59:29.725534'

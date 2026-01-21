@@ -1,0 +1,436 @@
+"""
+Model Training Component for MLOps Pipeline
+This module handles model training, evaluation, and model selection
+"""
+
+import sys
+import os
+import numpy as np
+from typing import Tuple
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score, roc_auc_score
+from imblearn.over_sampling import SMOTE
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
+
+from Networksecurity.Entity.artifact_entity import (
+    DataTransformationArtifact,
+    ModelTrainerArtifact,
+    ClassificationMetricArtifact
+)
+from Networksecurity.Entity.config_entity import ModelTrainerConfig
+from Networksecurity.exception.exception import NetworkSecurityException
+from Networksecurity.logging.logger import logging
+from Networksecurity.utils.main_utils.utils import (
+    load_numpy_array_data,
+    save_object,
+    load_object
+)
+
+
+class ModelTrainer:
+    """
+    Model Training Component
+    
+    Purpose:
+    --------
+    This component trains multiple ML models and selects the best one based on:
+    1. Training data performance
+    2. Test data performance (generalization)
+    3. Meeting minimum accuracy threshold
+    4. F1-score, precision, recall metrics
+    
+    Why Model Training?
+    -------------------
+    - Automated model selection (compares multiple algorithms)
+    - Ensures model meets business requirements (minimum accuracy)
+    - Evaluates generalization (train vs test performance)
+    - Prevents overfitting detection
+    - Production-ready model artifacts
+    
+    Models Tested:
+    --------------
+    1. Logistic Regression - Simple baseline
+    2. Decision Tree - Non-linear patterns
+    3. Random Forest - Ensemble method (robust)
+    4. Gradient Boosting - Advanced ensemble (often best)
+    5. AdaBoost - Adaptive boosting (boosts weak learners)
+    
+    SMOTE (Synthetic Minority Over-sampling):
+    -----------------------------------------
+    - Handles imbalanced churn data (typically 20% churn, 80% no churn)
+    - Creates synthetic samples of minority class
+    - Prevents model bias toward majority class
+    - Applied only to training data (not test)
+    
+    Evaluation Metrics:
+    -------------------
+    - Accuracy: Overall correctness (good for balanced datasets)
+    - Precision: Of predicted churns, how many actually churned? (avoid false alarms)
+    - Recall: Of actual churns, how many did we catch? (avoid missing churns)
+    - F1-Score: Harmonic mean of precision & recall (balance both)
+    - ROC-AUC: Area under ROC curve (model's discriminative ability)
+    
+    For Churn:
+    ----------
+    - High Recall: Important! Don't miss customers who will churn
+    - High Precision: Also important to avoid wasting resources on false positives
+    - F1-Score: Best metric for imbalanced churn datasets
+    
+    Input:
+    ------
+    - Transformed numpy arrays from Data Transformation Component
+    
+    Output:
+    -------
+    - Best trained model (.pkl file)
+    - Training and testing metrics
+    - Model comparison report
+    """
+    
+    def __init__(self, model_trainer_config: ModelTrainerConfig,
+                 data_transformation_artifact: DataTransformationArtifact):
+        """
+        Initialize Model Trainer Component
+        
+        Args:
+            model_trainer_config: Configuration for model training
+            data_transformation_artifact: Output from transformation step
+        """
+        try:
+            self.model_trainer_config = model_trainer_config
+            self.data_transformation_artifact = data_transformation_artifact
+            logging.info("Model Trainer Component initialized")
+        except Exception as e:
+            raise NetworkSecurityException(e, sys)
+    
+    def evaluate_model(self, X_train: np.array, y_train: np.array,
+                      X_test: np.array, y_test: np.array,
+                      models: dict) -> Tuple[dict, dict]:
+        """
+        Train and evaluate multiple models
+        
+        Args:
+            X_train: Training features
+            y_train: Training target
+            X_test: Test features
+            y_test: Test target
+            models: Dictionary of model name and model object
+            
+        Returns:
+            Tuple[dict, dict]: (train_scores, test_scores) for each model
+        """
+        try:
+            train_report = {}
+            test_report = {}
+            
+            logging.info(f"Evaluating {len(models)} models")
+            
+            for model_name, model in models.items():
+                logging.info(f"\n{'='*50}")
+                logging.info(f"Training: {model_name}")
+                logging.info(f"{'='*50}")
+                
+                # Train model
+                model.fit(X_train, y_train)
+                logging.info(f"{model_name} training completed")
+                
+                # Predictions
+                y_train_pred = model.predict(X_train)
+                y_test_pred = model.predict(X_test)
+                
+                # Calculate metrics for training data
+                train_accuracy = accuracy_score(y_train, y_train_pred)
+                train_f1 = f1_score(y_train, y_train_pred, average='weighted')
+                train_precision = precision_score(y_train, y_train_pred)
+                train_recall = recall_score(y_train, y_train_pred)
+                train_roc_auc = roc_auc_score(y_train, y_train_pred)
+                
+                # Calculate metrics for test data
+                test_accuracy = accuracy_score(y_test, y_test_pred)
+                test_f1 = f1_score(y_test, y_test_pred, average='weighted')
+                test_precision = precision_score(y_test, y_test_pred)
+                test_recall = recall_score(y_test, y_test_pred)
+                test_roc_auc = roc_auc_score(y_test, y_test_pred)
+                
+                # Store results
+                train_report[model_name] = {
+                    'accuracy': train_accuracy,
+                    'f1_score': train_f1,
+                    'precision': train_precision,
+                    'recall': train_recall,
+                    'roc_auc_score': train_roc_auc
+                }
+                
+                test_report[model_name] = {
+                    'accuracy': test_accuracy,
+                    'f1_score': test_f1,
+                    'precision': test_precision,
+                    'recall': test_recall,
+                    'roc_auc_score': test_roc_auc
+                }
+                
+                # Log results
+                logging.info(f"\n{model_name} - Training Metrics:")
+                logging.info(f"  Accuracy:  {train_accuracy:.4f}")
+                logging.info(f"  F1-Score:  {train_f1:.4f}")
+                logging.info(f"  Precision: {train_precision:.4f}")
+                logging.info(f"  Recall:    {train_recall:.4f}")
+                logging.info(f"  ROC-AUC:   {train_roc_auc:.4f}")
+                
+                logging.info(f"\n{model_name} - Testing Metrics:")
+                logging.info(f"  Accuracy:  {test_accuracy:.4f}")
+                logging.info(f"  F1-Score:  {test_f1:.4f}")
+                logging.info(f"  Precision: {test_precision:.4f}")
+                logging.info(f"  Recall:    {test_recall:.4f}")
+                logging.info(f"  ROC-AUC:   {test_roc_auc:.4f}")
+                
+                # Check for overfitting
+                overfitting = train_accuracy - test_accuracy
+                if overfitting > 0.1:
+                    logging.warning(f"⚠️  Potential overfitting detected! "
+                                  f"Train-Test gap: {overfitting:.4f}")
+                logging.info(f"  Recall:    {train_recall:.4f}")
+                
+                logging.info(f"\n{model_name} - Testing Metrics:")
+                logging.info(f"  Accuracy:  {test_accuracy:.4f}")
+                logging.info(f"  F1-Score:  {test_f1:.4f}")
+                logging.info(f"  Precision: {test_precision:.4f}")
+                logging.info(f"  Recall:    {test_recall:.4f}")
+                
+                # Check for overfitting
+                overfitting = train_accuracy - test_accuracy
+                if overfitting > 0.1:
+                    logging.warning(f"⚠️  Potential overfitting detected! "
+                                  f"Train-Test gap: {overfitting:.4f}")
+            
+            return train_report, test_report
+            
+        except Exception as e:
+            raise NetworkSecurityException(e, sys)
+    
+    def get_best_model(self, train_report: dict, test_report: dict,
+                       models: dict) -> Tuple[str, object, float]:
+        """
+        Select best model based on test F1-score
+        
+        Why F1-score?
+        - Balances precision and recall
+        - Better for imbalanced datasets (churn is usually minority class)
+        - More robust than accuracy alone
+        
+        Args:
+            train_report: Training metrics for all models
+            test_report: Test metrics for all models
+            models: Dictionary of trained models
+            
+        Returns:
+            Tuple[str, object, float]: (best_model_name, best_model_object, best_score)
+        """
+        try:
+            best_model_name = None
+            best_model_score = 0
+            best_model = None
+            
+            logging.info("\n" + "="*50)
+            logging.info("MODEL COMPARISON - Test F1-Scores:")
+            logging.info("="*50)
+            
+            for model_name in test_report.keys():
+                f1 = test_report[model_name]['f1_score']
+                accuracy = test_report[model_name]['accuracy']
+                
+                logging.info(f"{model_name:25} - F1: {f1:.4f}, Accuracy: {accuracy:.4f}")
+                
+                if f1 > best_model_score:
+                    best_model_score = f1
+                    best_model_name = model_name
+                    best_model = models[model_name]
+            
+            logging.info("="*50)
+            logging.info(f"🏆 BEST MODEL: {best_model_name}")
+            logging.info(f"   F1-Score: {best_model_score:.4f}")
+            logging.info(f"   Accuracy: {test_report[best_model_name]['accuracy']:.4f}")
+            logging.info("="*50)
+            
+            return best_model_name, best_model, best_model_score
+            
+        except Exception as e:
+            raise NetworkSecurityException(e, sys)
+    
+    def initiate_model_trainer(self) -> ModelTrainerArtifact:
+        """
+        Main method to execute model training
+        
+        Process:
+        --------
+        1. Load transformed train and test arrays
+        2. Separate features (X) from target (y)
+        3. Initialize multiple ML models
+        4. Train and evaluate all models
+        5. Select best model based on F1-score
+        6. Check if model meets minimum threshold
+        7. Save best model
+        8. Return training artifact with metrics
+        
+        Returns:
+            ModelTrainerArtifact: Best model path and performance metrics
+        """
+        try:
+            logging.info("Entered initiate_model_trainer method")
+            
+            # Step 1: Load transformed data
+            logging.info("Loading transformed train and test arrays")
+            train_arr = load_numpy_array_data(
+                self.data_transformation_artifact.transformed_train_file_path
+            )
+            test_arr = load_numpy_array_data(
+                self.data_transformation_artifact.transformed_test_file_path
+            )
+            
+            logging.info(f"Train array shape: {train_arr.shape}")
+            logging.info(f"Test array shape: {test_arr.shape}")
+            
+            # Step 2: Split features and target
+            # Last column is target, all others are features
+            X_train, yCheck for class imbalance and apply SMOTE if needed
+            unique, counts = np.unique(y_train, return_counts=True)
+            class_distribution = dict(zip(unique, counts))
+            logging.info(f"Original class distribution: {class_distribution}")
+            
+            # Calculate imbalance ratio
+            minority_class_count = min(counts)
+            majority_class_count = max(counts)
+            imbalance_ratio = minority_class_count / majority_class_count
+            
+            logging.info(f"Imbalance ratio: {imbalance_ratio:.4f}")
+            
+            # Apply SMOTE if data is imbalanced (ratio < 0.5)
+            if imbalance_ratio < 0.5:
+                logging.info("⚖️  Imbalanced dataset detected! Applying SMOTE...")
+                smote = SMOTE(random_state=42)
+                X_train_balanced, y_train_balanced = smote.fit_resample(X_train, y_train)
+                
+                unique_balanced, counts_balanced = np.unique(y_train_balanced, return_counts=True)
+                balanced_distribution = dict(zip(unique_balanced, counts_balanced))
+                logging.info(f"Balanced class distribution: {balanced_distribution}")
+                logging.info(f"✅ SMOTE applied: {X_train.shape[0]} → {X_train_balanced.shape[0]} samples")
+                
+                # Use balanced data for training
+                X_train = X_train_balanced
+                y_train = y_train_balanced
+            else:
+                logging.info("✅ Dataset is reasonably balanced. Skipping SMOTE.")
+            
+            # Step 4: Initialize models to compare (with tuned hyperparameters from notebook)
+            models = {
+                "Logistic Regression": LogisticRegression(
+                    C=0.1, 
+                    max_iter=100, 
+                    penalty='l1', 
+                    solver='saga',
+                    random_state=42
+                ),
+                "Decision Tree": DecisionTreeClassifier(
+                    criterion='entropy',
+                    max_depth=10,
+                    min_samples_leaf=8,
+                    min_samples_split=20,
+                    random_state=42
+                ),
+                "Random Forest": RandomForestClassifier(
+                    max_depth=None,
+                    max_features='log2',
+                    min_samples_split=2,
+                    n_estimators=1000,
+                    random_state=42
+                ),
+                "Gradient Boosting": GradientBoostingClassifier(
+                    criterion='squared_error',
+                    loss='exponential',
+                    max_depth=8,
+                    min_samples_split=2,
+                    n_estimators=100,
+                    random_state=42
+                ),
+                "AdaBoost": AdaBoostClassifier(
+                    learning_rate=1,
+                    n_estimators=500,
+                    random_state=42
+                
+            # Step 3: Initialize models to compare
+            models = {
+                "Logistic Regression": LogisticRegression(max_iter=1000, random_state=42),
+                "Decision Tree": DecisionTreeClassifier(random_state=42),
+                "Random Forest": RandomForestClassifier(n_estimators=100, random_state=42),
+                "Gradient Boosting": GradientBoostingClassifier(n_estimators=100, random_state=42)
+            }
+            
+            # Step 5: Train and evaluate all models
+            train_report, test_report = self.evaluate_model(
+                X_train, y_train, X_test, y_test, models
+            )
+            
+            # Step 6: Select best model
+            best_model_name, best_model, best_model_score = self.get_best_model(
+                train_report, test_report, models
+            )
+            
+            # Step 7: Check if best model meets minimum threshold
+            if best_model_score < self.model_trainer_config.expected_accuracy:
+                logging.error(f"❌ No model met the expected accuracy threshold")
+                logging.error(f"   Best score: {best_model_score:.4f}")
+                logging.error(f"   Required:   {self.model_trainer_config.expected_accuracy:.4f}")
+                raise Exception(
+                    f"No model achieved expected accuracy of "
+                    f"{self.model_trainer_config.expected_accuracy}. "
+                    f"Best was {best_model_score:.4f}"
+                )
+            
+            logging.info(f"✅ Best model meets required threshold!")
+            
+            # Step 8: Save best model
+            logging.info(f"Saving best model: {best_model_name}")
+            
+            # Save to artifacts directory (versioned)
+            save_object(
+                self.model_trainer_config.trained_model_file_path,
+                best_model
+            )
+            
+            # Also save to final_model directory (for deployment)
+            save_object("final_model/model.pkl", best_model)
+            
+            logging.info(f"Model saved successfully")
+            
+            # Step 9: Create metric artifacts (including ROC-AUC)
+            train_metric_artifact = ClassificationMetricArtifact(
+                f1_score=train_report[best_model_name]['f1_score'],
+                precision_score=train_report[best_model_name]['precision'],
+                recall_score=train_report[best_model_name]['recall'],
+                roc_auc_score=train_report[best_model_name]['roc_auc_score']
+            )
+            
+            test_metric_artifact = ClassificationMetricArtifact(
+                f1_score=test_report[best_model_name]['f1_score'],
+                precision_score=test_report[best_model_name]['precision'],
+                recall_score=test_report[best_model_name]['recall'],
+                roc_auc_score=test_report[best_model_name]['roc_auc_score']
+            )
+            
+            # Step 10: Create model trainer artifact
+            model_trainer_artifact = ModelTrainerArtifact(
+                trained_model_file_path=self.model_trainer_config.trained_model_file_path,
+                train_metric_artifact=train_metric_artifact,
+                test_metric_artifact=test_metric_artifact
+            )
+            
+            logging.info("Model training completed successfully")
+            logging.info(f"Model Trainer Artifact: {model_trainer_artifact}")
+            
+            return model_trainer_artifact
+            
+        except Exception as e:
+            raise NetworkSecurityException(e, sys)

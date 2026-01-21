@@ -15,6 +15,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 
 from Networksecurity.exception.exception import NetworkSecurityException
 from Networksecurity.logging.logger import logging
+from Networksecurity.Entity.artifact_entity import DataIngestionArtifact
 
 
 @dataclass
@@ -189,12 +190,12 @@ class DataIngestion:
             logging.error("Error occurred during data validation")
             raise NetworkSecurityException(e, sys)
     
-    def initiate_data_ingestion(self) -> Tuple[str, str]:
+    def initiate_data_ingestion(self) -> DataIngestionArtifact:
         """
         Main method to initiate the data ingestion process
         
         Returns:
-            Tuple[str, str]: Paths to train and test data
+            DataIngestionArtifact: Artifact containing paths to train and test data
         """
         try:
             logging.info("=" * 50)
@@ -220,7 +221,13 @@ class DataIngestion:
             logging.info("Data Ingestion Process Completed Successfully")
             logging.info("=" * 50)
             
-            return train_path, test_path
+            # Create and return DataIngestionArtifact
+            data_ingestion_artifact = DataIngestionArtifact(
+                trained_file_path=train_path,
+                test_file_path=test_path
+            )
+            
+            return data_ingestion_artifact
             
         except Exception as e:
             logging.error("Error occurred in data ingestion process")

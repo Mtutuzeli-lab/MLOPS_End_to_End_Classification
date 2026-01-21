@@ -1,0 +1,6 @@
+artifact_location: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/784127305320032479
+creation_time: 1769036040613
+experiment_id: '784127305320032479'
+last_update_time: 1769036040613
+lifecycle_stage: active
+name: Telco_Churn_Model_Training
