@@ -88,15 +88,17 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
       
-      - name: Setup Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
         with:
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          project_id: mlops-churn-prediction-484819
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
       
       - name: Deploy Model to Vertex AI Endpoint
         run: |
           # This creates a managed endpoint that serves predictions
           echo "Deploying model to Vertex AI..."
-          # Deployment script would go here
-          # (we'll create this separately)
+          echo "Model already pushed to GCS and registered in Vertex AI by training job"
+          echo "Deployment placeholder - can run deploy_to_vertex_ai.py here if needed"
