@@ -52,7 +52,7 @@ jobs:
       # Step 7: Upload artifacts for inspection
       - name: Upload Training Artifacts
         if: always()  # Upload even if previous steps fail
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: training-artifacts
           path: |
