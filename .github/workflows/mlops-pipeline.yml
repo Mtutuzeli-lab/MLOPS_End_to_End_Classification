@@ -6,9 +6,10 @@ on:
     branches:
       - main
       - develop
-  schedule:
-    # Run training daily at 2 AM UTC (automated retraining)
-    - cron: '0 2 * * *'
+  # schedule:
+  #   # Run training daily at 2 AM UTC (automated retraining)
+  #   # DISABLED - uncomment when ready for automated training
+  #   - cron: '0 2 * * *'
   workflow_dispatch:  # Allow manual trigger from GitHub UI
 
 jobs:
