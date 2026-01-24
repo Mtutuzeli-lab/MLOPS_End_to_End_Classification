@@ -28,15 +28,23 @@ def find_latest_artifacts():
         if not artifacts_dir.exists():
             raise Exception("No artifacts folder found. Run train_pipeline.py first.")
         
-        # Get all timestamped folders, sorted by name (latest first)
-        timestamp_folders = sorted(
-            [d for d in artifacts_dir.iterdir() if d.is_dir()],
-            reverse=True
-        )
+        # Get all timestamped folders (format: MM_DD_YYYY_HH_MM_SS)
+        timestamp_folders = []
+        for d in artifacts_dir.iterdir():
+            if d.is_dir() and len(d.name.split('_')) == 6:  # Valid timestamp format
+                try:
+                    # Try to parse as timestamp to validate
+                    parts = d.name.split('_')
+                    int(parts[0]), int(parts[1]), int(parts[2])  # Month, Day, Year
+                    timestamp_folders.append(d)
+                except ValueError:
+                    continue  # Skip non-timestamp folders
         
         if not timestamp_folders:
             raise Exception("No timestamped artifact folders found. Run train_pipeline.py first.")
         
+        # Sort by folder name (timestamp format ensures chronological order)
+        timestamp_folders.sort(reverse=True)
         latest_folder = timestamp_folders[0]
         logging.info(f"Using latest artifacts from: {latest_folder}")
         
