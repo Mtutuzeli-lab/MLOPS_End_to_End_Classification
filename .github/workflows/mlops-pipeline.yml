@@ -40,15 +40,15 @@ jobs:
           mkdir -p config
           echo "${{ secrets.GCP_SA_KEY }}" > config/service-account-key.json
       
-      # Step 5: Run inference test (quick validation)
-      - name: Test Model & Preprocessor
-        run: |
-          python test_inference.py
-      
-      # Step 6: Run training pipeline
+      # Step 5: Run training pipeline
       - name: Train Models
         run: |
           python train_pipeline.py
+      
+      # Step 6: Run inference test (quick validation)
+      - name: Test Model & Preprocessor
+        run: |
+          python test_inference.py
       
       # Step 7: Upload artifacts for inspection
       - name: Upload Training Artifacts
