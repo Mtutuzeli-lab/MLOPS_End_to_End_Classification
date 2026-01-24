@@ -38,7 +38,9 @@ jobs:
       - name: Setup Google Cloud Credentials
         run: |
           mkdir -p config
-          echo "${{ secrets.GCP_SA_KEY }}" > config/service-account-key.json
+          cat > config/service-account-key.json << 'EOF'
+          ${{ secrets.GCP_SA_KEY }}
+          EOF
       
       # Step 5: Run training pipeline
       - name: Train Models
