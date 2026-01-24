@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/0/models/m-3ac1728962ec45e09904a0dd7f34cb9a/artifacts
+creation_timestamp: 1769281585567
+experiment_id: '0'
+last_updated_timestamp: 1769281589702
+model_id: m-3ac1728962ec45e09904a0dd7f34cb9a
+model_type: null
+name: Random Forest_model
+source_run_id: 2c1f4b9f755145f0be1d355f74a4f8c6
+status: 2
+status_message: null

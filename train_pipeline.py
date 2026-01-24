@@ -5,6 +5,7 @@ This script runs the complete MLOps pipeline: Ingestion → Validation → Trans
 
 import sys
 import os
+import dagshub
 
 # Add project root to path
 sys.path.append(os.path.dirname(__file__))
@@ -13,6 +14,7 @@ from Networksecurity.Components.data_ingestion import DataIngestion, DataIngesti
 from Networksecurity.Components.data_validation import DataValidation
 from Networksecurity.Components.data_transformation import DataTransformation
 from Networksecurity.Components.model_trainer import ModelTrainer
+from Networksecurity.Components.model_pusher import ModelPusher, ModelPusherConfig
 
 from Networksecurity.Entity.config_entity import (
     TrainingPipelineConfig,
@@ -36,6 +38,9 @@ def start_training_pipeline():
     4. Model Training - Train multiple models and select best
     """
     try:
+        # Initialize DagsHub for remote MLflow tracking (temporarily disabled for testing)
+        # dagshub.init(repo_owner='Mtutuzeli-lab', repo_name='MLOPS_End_to_End_Classification', mlflow=True)
+        
         logging.info("=" * 80)
         logging.info("STARTING TRAINING PIPELINE")
         logging.info("=" * 80)
@@ -104,6 +109,26 @@ def start_training_pipeline():
         
         logging.info(f"Model Training completed")
         logging.info(f"   Model saved: {model_trainer_artifact.trained_model_file_path}")
+        
+        # ==================== STEP 5: MODEL PUSHER ====================
+        logging.info("\n" + "=" * 80)
+        logging.info("STEP 5: MODEL PUSHER (GCS + Vertex AI)")
+        logging.info("=" * 80)
+        
+        try:
+            model_pusher_config = ModelPusherConfig()
+            model_pusher = ModelPusher(
+                model_trainer_artifact=model_trainer_artifact,
+                model_pusher_config=model_pusher_config
+            )
+            model_pusher_artifact = model_pusher.initiate_model_push()
+            
+            logging.info(f"Model Push completed")
+            logging.info(f"   GCS URI: {model_pusher_artifact.gcs_model_uri}")
+            logging.info(f"   Vertex Model ID: {model_pusher_artifact.vertex_model_id}")
+        except Exception as e:
+            logging.warning(f"Model push skipped (GCP credentials may not be configured): {str(e)}")
+            model_pusher_artifact = None
         
         # ==================== FINAL RESULTS ====================
         logging.info("\n" + "=" * 80)

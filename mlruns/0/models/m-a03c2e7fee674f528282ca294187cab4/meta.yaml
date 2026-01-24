@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/0/models/m-a03c2e7fee674f528282ca294187cab4/artifacts
+creation_timestamp: 1769281598477
+experiment_id: '0'
+last_updated_timestamp: 1769281602532
+model_id: m-a03c2e7fee674f528282ca294187cab4
+model_type: null
+name: Gradient Boosting_model
+source_run_id: a2aeff03df744141b3ee3f0520df77ee
+status: 2
+status_message: null

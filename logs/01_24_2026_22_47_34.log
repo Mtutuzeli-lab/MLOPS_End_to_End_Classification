@@ -1,0 +1,15 @@
+[ 2026-01-24 22:47:35,909 ] 44 root - INFO - ================================================================================
+[ 2026-01-24 22:47:35,909 ] 45 root - INFO - STARTING TRAINING PIPELINE
+[ 2026-01-24 22:47:35,909 ] 46 root - INFO - ================================================================================
+[ 2026-01-24 22:47:35,909 ] 52 root - INFO - 
+================================================================================
+[ 2026-01-24 22:47:35,910 ] 53 root - INFO - STEP 1: DATA INGESTION
+[ 2026-01-24 22:47:35,910 ] 54 root - INFO - ================================================================================
+[ 2026-01-24 22:47:35,911 ] 47 root - INFO - Data Ingestion Component initialized
+[ 2026-01-24 22:47:35,912 ] 201 root - INFO - ==================================================
+[ 2026-01-24 22:47:35,912 ] 202 root - INFO - Data Ingestion Process Started
+[ 2026-01-24 22:47:35,912 ] 203 root - INFO - ==================================================
+[ 2026-01-24 22:47:35,912 ] 57 root - INFO - Starting data loading from BigQuery
+[ 2026-01-24 22:47:46,672 ] 71 root - ERROR - Error occurred while loading data from BigQuery
+[ 2026-01-24 22:47:46,672 ] 233 root - ERROR - Error occurred in data ingestion process
+[ 2026-01-24 22:47:46,672 ] 165 root - ERROR - Training pipeline failed: Error occurred in python script name [C:\Users\mtutu\MLOps_End_to_End_Classification\Networksecurity\Components\data_ingestion.py] line number [206] error message [Error occurred in python script name [C:\Users\mtutu\MLOps_End_to_End_Classification\Networksecurity\Components\data_ingestion.py] line number [63] error message ['charmap' codec can't encode character '\u2713' in position 0: character maps to <undefined>]]

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/784127305320032479/c3c01f684a364b5b8f2e01821beef943/artifacts
+end_time: 1769287750959
+entry_point_name: ''
+experiment_id: '784127305320032479'
+lifecycle_stage: active
+run_id: c3c01f684a364b5b8f2e01821beef943
+run_name: AdaBoost
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769287748540
+status: 3
+tags: []
+user_id: mtutu

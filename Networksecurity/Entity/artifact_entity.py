@@ -61,3 +61,14 @@ class ModelTrainerArtifact:
     trained_model_file_path: str
     train_metric_artifact: ClassificationMetricArtifact
     test_metric_artifact: ClassificationMetricArtifact
+
+
+@dataclass
+class ModelPusherArtifact:
+    """
+    Output artifact from Model Pusher Component
+    Contains GCS URI and Vertex AI model registry ID
+    """
+    gcs_model_uri: str
+    vertex_model_id: str
+    pushed_successfully: bool

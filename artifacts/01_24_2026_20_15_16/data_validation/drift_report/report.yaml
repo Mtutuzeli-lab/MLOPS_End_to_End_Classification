@@ -1,0 +1,20 @@
+Churn:
+  drift_detected: false
+  ks_statistic: 0.00011474833437996601
+  p_value: 1.0
+MonthlyCharges:
+  drift_detected: false
+  ks_statistic: 0.008075519344333704
+  p_value: 0.9790800227887014
+SeniorCitizen:
+  drift_detected: false
+  ks_statistic: 0.006022181307985042
+  p_value: 0.9996491789897534
+TotalCharges:
+  drift_detected: false
+  ks_statistic: 0.006106094186870692
+  p_value: 0.9995473364282637
+tenure:
+  drift_detected: false
+  ks_statistic: 0.010242594716521669
+  p_value: 0.8669642069405084

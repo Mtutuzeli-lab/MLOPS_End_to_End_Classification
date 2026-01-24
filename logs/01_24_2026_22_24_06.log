@@ -1,0 +1,22 @@
+[ 2026-01-24 22:24:06,563 ] 122 root - INFO - Step 1: Loading artifacts...
+[ 2026-01-24 22:24:06,563 ] 41 root - INFO - Using latest artifacts from: artifacts\01_24_2026_21_15_49
+[ 2026-01-24 22:24:06,564 ] 69 root - INFO - Loading model from: artifacts\01_24_2026_21_15_49\model_trainer\trained_model\model.pkl
+[ 2026-01-24 22:24:08,414 ] 103 root - INFO - Object loaded successfully from: artifacts\01_24_2026_21_15_49\model_trainer\trained_model\model.pkl
+[ 2026-01-24 22:24:08,414 ] 72 root - INFO - Loading preprocessor from: artifacts\01_24_2026_21_15_49\data_transformation\transformed_object\preprocessor.pkl
+[ 2026-01-24 22:24:08,436 ] 103 root - INFO - Object loaded successfully from: artifacts\01_24_2026_21_15_49\data_transformation\transformed_object\preprocessor.pkl
+[ 2026-01-24 22:24:08,437 ] 75 root - INFO - \u2713 Model and preprocessor loaded successfully!
+[ 2026-01-24 22:24:08,437 ] 131 root - INFO - 
+Step 2: Loading sample data...
+[ 2026-01-24 22:24:08,437 ] 95 root - INFO - Loading sample data from: Data\Telco-Customer-Churn-cleaned.csv
+[ 2026-01-24 22:24:08,549 ] 133 root - INFO - Sample data shape: (5, 20)
+[ 2026-01-24 22:24:08,550 ] 139 root - INFO - 
+Step 3: Testing preprocessor on sample data...
+[ 2026-01-24 22:24:08,570 ] 144 root - INFO - Transformed shape: (5, 30)
+[ 2026-01-24 22:24:08,570 ] 156 root - INFO - 
+Step 4: Testing model predictions...
+[ 2026-01-24 22:24:08,588 ] 168 root - INFO - Predictions: [0. 0. 0. 0. 0.]
+[ 2026-01-24 22:24:08,589 ] 169 root - INFO - Probabilities: [[0.82 0.18]
+ [0.99 0.01]
+ [0.92 0.08]
+ [0.89 0.11]
+ [1.   0.  ]]

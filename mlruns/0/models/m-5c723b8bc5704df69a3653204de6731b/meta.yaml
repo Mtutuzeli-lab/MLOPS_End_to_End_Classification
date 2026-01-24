@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/0/models/m-5c723b8bc5704df69a3653204de6731b/artifacts
+creation_timestamp: 1769281573431
+experiment_id: '0'
+last_updated_timestamp: 1769281578874
+model_id: m-5c723b8bc5704df69a3653204de6731b
+model_type: null
+name: Logistic Regression_model
+source_run_id: e289078e415941c8a3b28d8af48efdf6
+status: 2
+status_message: null

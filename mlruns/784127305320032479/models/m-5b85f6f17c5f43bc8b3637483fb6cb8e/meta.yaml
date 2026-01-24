@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/784127305320032479/models/m-5b85f6f17c5f43bc8b3637483fb6cb8e/artifacts
+creation_timestamp: 1769278587436
+experiment_id: '784127305320032479'
+last_updated_timestamp: 1769278591597
+model_id: m-5b85f6f17c5f43bc8b3637483fb6cb8e
+model_type: null
+name: AdaBoost_model
+source_run_id: 863169708e764ff2af4cc27f4276a826
+status: 2
+status_message: null

@@ -1,0 +1,74 @@
+# Cloud Build Configuration
+# Runs training pipeline on GCP Cloud Build
+# Triggered by: push to GitHub, manual trigger, or schedule
+
+steps:
+  # Step 1: Install Python dependencies
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        apt-get update
+        apt-get install -y python3-pip
+        pip install -r requirements.txt
+
+  # Step 2: Run inference test
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Running inference test..."
+        python test_inference.py
+
+  # Step 3: Run full training pipeline
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Starting model training..."
+        python train_pipeline.py
+
+  # Step 4: Deploy model to Vertex AI Endpoint
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Deploying model to Vertex AI..."
+        # Get the latest model from GCS
+        LATEST_MODEL=$(gsutil ls gs://mlops-churn-models/telco-churn-model/ | tail -1)
+        echo "Deploying model from: $LATEST_MODEL"
+        
+        # Create Vertex AI endpoint (if it doesn't exist)
+        gcloud ai endpoints create telco-churn-endpoint \
+          --region=us-central1 || echo "Endpoint already exists"
+        
+        # Deploy model
+        gcloud ai endpoints deploy-model telco-churn-endpoint \
+          --region=us-central1 \
+          --model=$LATEST_MODEL \
+          --display-name=telco-churn-prediction
+
+# Configuration
+timeout: '3600s'  # 1 hour timeout
+options:
+  machineType: 'N1_HIGHCPU_8'  # Use faster machine for training
+
+# Artifacts to keep
+artifacts:
+  objects:
+    location: 'gs://mlops-churn-artifacts'
+    paths:
+      - 'artifacts/**/*'
+      - 'logs/**/*'
+
+# Build triggers
+# Images:
+#   - 'gcr.io/mlops-churn-prediction-484819/mlops-pipeline:latest'
+
+# Secret Manager integration (for credentials)
+# onFailure:
+#   - 'gcloud notif send "MLOps pipeline failed"'

@@ -10,10 +10,17 @@ plotly
 scikit-learn
 imbalanced-learn
 mlflow
+dagshub
 
 # BigQuery dependencies
 google-cloud-bigquery
 pandas-gbq
 db-dtypes
+
+# PySpark dependencies
+pyspark
+pyarrow
+findspark
+dagshub
 
 ##-e .

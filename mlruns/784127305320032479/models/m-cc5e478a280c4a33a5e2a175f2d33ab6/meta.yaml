@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/784127305320032479/models/m-cc5e478a280c4a33a5e2a175f2d33ab6/artifacts
+creation_timestamp: 1769278556916
+experiment_id: '784127305320032479'
+last_updated_timestamp: 1769278562428
+model_id: m-cc5e478a280c4a33a5e2a175f2d33ab6
+model_type: null
+name: Decision Tree_model
+source_run_id: 59ef964c8c9d44d7b53bb17476933f81
+status: 2
+status_message: null

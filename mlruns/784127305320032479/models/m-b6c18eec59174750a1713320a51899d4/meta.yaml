@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/784127305320032479/models/m-b6c18eec59174750a1713320a51899d4/artifacts
+creation_timestamp: 1769278591777
+experiment_id: '784127305320032479'
+last_updated_timestamp: 1769278596033
+model_id: m-b6c18eec59174750a1713320a51899d4
+model_type: null
+name: best_model
+source_run_id: e9d5eb6c51524ea09cfc31f3cdab92e2
+status: 2
+status_message: null

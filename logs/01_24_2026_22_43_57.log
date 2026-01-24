@@ -1,0 +1,5 @@
+[ 2026-01-24 22:43:58,324 ] 83 root - INFO - Model Pusher Component initialized
+[ 2026-01-24 22:43:58,325 ] 257 root - INFO - Entered initiate_model_push method
+[ 2026-01-24 22:43:58,325 ] 260 root - INFO - Step 1: Loading trained model...
+[ 2026-01-24 22:43:58,325 ] 98 root - INFO - Loading model from: artifacts\01_24_2026_22_42_56\model_trainer\trained_model\model.pkl
+[ 2026-01-24 22:43:58,325 ] 298 root - ERROR - Model push failed: Error occurred in python script name [C:\Users\mtutu\MLOps_End_to_End_Classification\Networksecurity\Components\model_pusher.py] line number [99] error message [Error occurred in python script name [C:\Users\mtutu\MLOps_End_to_End_Classification\Networksecurity\utils\main_utils\utils.py] line number [98] error message [The file: artifacts\01_24_2026_22_42_56\model_trainer\trained_model\model.pkl does not exist]]

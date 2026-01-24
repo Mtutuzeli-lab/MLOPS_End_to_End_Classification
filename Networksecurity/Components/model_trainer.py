@@ -99,9 +99,6 @@ class ModelTrainer:
                         'test_recall': test_recall,
                         'test_roc_auc': test_roc_auc
                     })
-                    
-                    # Log the model
-                    mlflow.sklearn.log_model(model, f"{model_name}_model")
                 
                 # Store results
                 train_report[model_name] = {
@@ -183,7 +180,6 @@ class ModelTrainer:
             
             # Set up MLflow
             mlflow.set_experiment("Telco_Churn_Model_Training")
-            mlflow.set_tracking_uri("file:./mlruns")
             
             with mlflow.start_run(run_name="Pipeline_Run"):
                 # Step 1: Load transformed data
@@ -322,10 +318,6 @@ class ModelTrainer:
                 
                 # Also save to final_model directory (for deployment)
                 save_object("final_model/model.pkl", best_model)
-                
-                # Log best model to MLflow
-                mlflow.sklearn.log_model(best_model, "best_model")
-                mlflow.log_artifact("final_model/model.pkl")
                 
                 logging.info(f"Model saved successfully")
             

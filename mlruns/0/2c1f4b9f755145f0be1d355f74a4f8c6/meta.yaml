@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/0/2c1f4b9f755145f0be1d355f74a4f8c6/artifacts
+end_time: 1769281589726
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 2c1f4b9f755145f0be1d355f74a4f8c6
+run_name: Random Forest
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769281583277
+status: 3
+tags: []
+user_id: Mtutuzeli-lab
