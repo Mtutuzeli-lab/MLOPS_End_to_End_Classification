@@ -47,12 +47,7 @@ jobs:
         run: |
           python train_pipeline.py
       
-      # Step 6: Run inference test (quick validation)
-      - name: Test Model & Preprocessor
-        run: |
-          python test_inference.py
-      
-      # Step 7: Upload artifacts for inspection
+      # Step 6: Upload artifacts for inspection
       - name: Upload Training Artifacts
         if: always()  # Upload even if previous steps fail
         uses: actions/upload-artifact@v4
@@ -62,6 +57,12 @@ jobs:
             artifacts/
             logs/
           retention-days: 30
+      
+      # Step 7: Run inference test (quick validation)
+      - name: Test Model & Preprocessor
+        if: success()  # Only test if training succeeded
+        run: |
+          python test_inference.py
       
       # Step 8: Notify on success
       - name: Notify Success
