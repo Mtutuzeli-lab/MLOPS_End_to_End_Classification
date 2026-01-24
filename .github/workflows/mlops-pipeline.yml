@@ -37,6 +37,7 @@ jobs:
       # Step 4: Setup GCP credentials
       - name: Setup Google Cloud Credentials
         run: |
+          mkdir -p config
           echo "${{ secrets.GCP_SA_KEY }}" > config/service-account-key.json
       
       # Step 5: Run inference test (quick validation)
