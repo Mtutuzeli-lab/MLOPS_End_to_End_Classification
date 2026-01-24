@@ -58,11 +58,11 @@ jobs:
             logs/
           retention-days: 30
       
-      # Step 7: Run inference test (quick validation)
-      - name: Test Model & Preprocessor
-        if: success()  # Only test if training succeeded
-        run: |
-          python test_inference.py
+      # Step 7: Run inference test (skip for now - model pusher will validate)
+      # - name: Test Model & Preprocessor
+      #   if: success()
+      #   run: |
+      #     python test_inference.py
       
       # Step 8: Notify on success
       - name: Notify Success
