@@ -1,0 +1,286 @@
+[ 2026-01-25 20:21:35,283 ] 44 root - INFO - ================================================================================
+[ 2026-01-25 20:21:35,284 ] 45 root - INFO - STARTING TRAINING PIPELINE
+[ 2026-01-25 20:21:35,284 ] 46 root - INFO - ================================================================================
+[ 2026-01-25 20:21:35,284 ] 52 root - INFO - 
+================================================================================
+[ 2026-01-25 20:21:35,284 ] 53 root - INFO - STEP 1: DATA INGESTION
+[ 2026-01-25 20:21:35,284 ] 54 root - INFO - ================================================================================
+[ 2026-01-25 20:21:35,286 ] 47 root - INFO - Data Ingestion Component initialized
+[ 2026-01-25 20:21:35,286 ] 201 root - INFO - ==================================================
+[ 2026-01-25 20:21:35,286 ] 202 root - INFO - Data Ingestion Process Started
+[ 2026-01-25 20:21:35,286 ] 203 root - INFO - ==================================================
+[ 2026-01-25 20:21:35,286 ] 57 root - INFO - Starting data loading from BigQuery
+[ 2026-01-25 20:21:45,265 ] 65 root - INFO - Data loaded successfully from BigQuery. Shape: (21096, 20)
+[ 2026-01-25 20:21:45,265 ] 66 root - INFO - Columns: ['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure', 'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod', 'MonthlyCharges', 'TotalCharges', 'Churn']
+[ 2026-01-25 20:21:45,265 ] 169 root - INFO - Starting data validation
+[ 2026-01-25 20:21:45,266 ] 180 root - INFO - Number of rows: 21096
+[ 2026-01-25 20:21:45,266 ] 181 root - INFO - Number of columns: 20
+[ 2026-01-25 20:21:45,281 ] 182 root - INFO - Missing values:
+gender              0
+SeniorCitizen       0
+Partner             0
+Dependents          0
+tenure              0
+PhoneService        0
+MultipleLines       0
+InternetService     0
+OnlineSecurity      0
+OnlineBackup        0
+DeviceProtection    0
+TechSupport         0
+StreamingTV         0
+StreamingMovies     0
+Contract            0
+PaperlessBilling    0
+PaymentMethod       0
+MonthlyCharges      0
+TotalCharges        0
+Churn               0
+dtype: int64
+[ 2026-01-25 20:21:45,284 ] 183 root - INFO - Target distribution:
+Churn
+0    15489
+1     5607
+Name: count, dtype: Int64
+[ 2026-01-25 20:21:45,284 ] 185 root - INFO - Data validation completed successfully
+[ 2026-01-25 20:21:45,415 ] 91 root - INFO - Raw data saved at: artifacts\raw_data.csv
+[ 2026-01-25 20:21:45,415 ] 110 root - INFO - Starting train-test split
+[ 2026-01-25 20:21:45,432 ] 120 root - INFO - Train set shape: (16876, 20)
+[ 2026-01-25 20:21:45,432 ] 121 root - INFO - Test set shape: (4220, 20)
+[ 2026-01-25 20:21:45,525 ] 146 root - INFO - Train data saved at: artifacts\train.csv
+[ 2026-01-25 20:21:45,549 ] 150 root - INFO - Test data saved at: artifacts\test.csv
+[ 2026-01-25 20:21:45,549 ] 220 root - INFO - ==================================================
+[ 2026-01-25 20:21:45,549 ] 221 root - INFO - Data Ingestion Process Completed Successfully
+[ 2026-01-25 20:21:45,549 ] 222 root - INFO - ==================================================
+[ 2026-01-25 20:21:45,549 ] 60 root - INFO - Data Ingestion completed
+[ 2026-01-25 20:21:45,549 ] 61 root - INFO -    Train file: artifacts\train.csv
+[ 2026-01-25 20:21:45,549 ] 62 root - INFO -    Test file: artifacts\test.csv
+[ 2026-01-25 20:21:45,549 ] 65 root - INFO - 
+================================================================================
+[ 2026-01-25 20:21:45,549 ] 66 root - INFO - STEP 2: DATA VALIDATION
+[ 2026-01-25 20:21:45,549 ] 67 root - INFO - ================================================================================
+[ 2026-01-25 20:21:45,549 ] 78 root - INFO - Data Validation Component initialized
+[ 2026-01-25 20:21:45,550 ] 236 root - INFO - Entered initiate_data_validation method
+[ 2026-01-25 20:21:45,550 ] 242 root - INFO - Reading train data from: artifacts\train.csv
+[ 2026-01-25 20:21:45,630 ] 245 root - INFO - Reading test data from: artifacts\test.csv
+[ 2026-01-25 20:21:45,668 ] 248 root - INFO - Train data shape: (16876, 20)
+[ 2026-01-25 20:21:45,668 ] 249 root - INFO - Test data shape: (4220, 20)
+[ 2026-01-25 20:21:45,668 ] 110 root - INFO - Number of columns: 20
+[ 2026-01-25 20:21:45,668 ] 110 root - INFO - Number of columns: 20
+[ 2026-01-25 20:21:45,669 ] 198 root - INFO - Base columns: ['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure', 'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod', 'MonthlyCharges', 'TotalCharges', 'Churn']
+[ 2026-01-25 20:21:45,669 ] 199 root - INFO - Current columns: ['gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure', 'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod', 'MonthlyCharges', 'TotalCharges', 'Churn']
+[ 2026-01-25 20:21:45,669 ] 212 root - INFO - All required columns are present
+[ 2026-01-25 20:21:45,669 ] 275 root - INFO - Target column 'Churn' found in both datasets
+[ 2026-01-25 20:21:45,669 ] 144 root - INFO - Starting data drift detection
+[ 2026-01-25 20:21:45,674 ] 170 root - INFO - No drift in column: SeniorCitizen (p-value: 0.9996)
+[ 2026-01-25 20:21:45,679 ] 170 root - INFO - No drift in column: tenure (p-value: 0.8670)
+[ 2026-01-25 20:21:45,685 ] 170 root - INFO - No drift in column: MonthlyCharges (p-value: 0.9791)
+[ 2026-01-25 20:21:45,689 ] 170 root - INFO - No drift in column: TotalCharges (p-value: 0.9995)
+[ 2026-01-25 20:21:45,693 ] 170 root - INFO - No drift in column: Churn (p-value: 1.0000)
+[ 2026-01-25 20:21:45,694 ] 173 root - INFO - No significant data drift detected
+[ 2026-01-25 20:21:45,699 ] 131 root - INFO - YAML file saved successfully at: artifacts\01_25_2026_20_21_32\data_validation\drift_report\report.yaml
+[ 2026-01-25 20:21:45,699 ] 289 root - INFO - Drift report saved at: artifacts\01_25_2026_20_21_32\data_validation\drift_report\report.yaml
+[ 2026-01-25 20:21:45,700 ] 300 root - INFO - Validation passed - saving valid data files
+[ 2026-01-25 20:21:45,894 ] 347 root - INFO - Data validation completed successfully
+[ 2026-01-25 20:21:45,895 ] 348 root - INFO - Validation Artifact: DataValidationArtifact(validation_status=True, valid_train_file_path='artifacts\\01_25_2026_20_21_32\\data_validation\\validated\\train.csv', valid_test_file_path='artifacts\\01_25_2026_20_21_32\\data_validation\\validated\\test.csv', invalid_train_file_path='artifacts\\01_25_2026_20_21_32\\data_validation\\invalid\\train.csv', invalid_test_file_path='artifacts\\01_25_2026_20_21_32\\data_validation\\invalid\\test.csv', drift_report_file_path='artifacts\\01_25_2026_20_21_32\\data_validation\\drift_report\\report.yaml')
+[ 2026-01-25 20:21:45,896 ] 76 root - INFO - Data Validation completed
+[ 2026-01-25 20:21:45,896 ] 77 root - INFO -    Validation Status: True
+[ 2026-01-25 20:21:45,896 ] 78 root - INFO -    Valid train file: artifacts\01_25_2026_20_21_32\data_validation\validated\train.csv
+[ 2026-01-25 20:21:45,896 ] 79 root - INFO -    Drift report: artifacts\01_25_2026_20_21_32\data_validation\drift_report\report.yaml
+[ 2026-01-25 20:21:45,896 ] 82 root - INFO - 
+================================================================================
+[ 2026-01-25 20:21:45,896 ] 83 root - INFO - STEP 3: DATA TRANSFORMATION
+[ 2026-01-25 20:21:45,896 ] 84 root - INFO - ================================================================================
+[ 2026-01-25 20:21:45,896 ] 73 root - INFO - Data Transformation Component initialized
+[ 2026-01-25 20:21:45,896 ] 172 root - INFO - Entered initiate_data_transformation method of DataTransformation class
+[ 2026-01-25 20:21:45,896 ] 175 root - INFO - Starting data transformation
+[ 2026-01-25 20:21:45,991 ] 185 root - INFO - Train data shape: (16876, 20)
+[ 2026-01-25 20:21:45,991 ] 186 root - INFO - Test data shape: (4220, 20)
+[ 2026-01-25 20:21:45,996 ] 195 root - INFO - Training features shape: (16876, 19)
+[ 2026-01-25 20:21:45,996 ] 196 root - INFO - Training target shape: (16876,)
+[ 2026-01-25 20:21:45,997 ] 203 root - INFO - Testing features shape: (4220, 19)
+[ 2026-01-25 20:21:45,998 ] 204 root - INFO - Testing target shape: (4220,)
+[ 2026-01-25 20:21:45,998 ] 107 root - INFO - Entered get_data_transformer_object method of DataTransformation class
+[ 2026-01-25 20:21:46,000 ] 120 root - INFO - Categorical features: ['gender', 'Partner', 'Dependents', 'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 'Contract', 'PaperlessBilling', 'PaymentMethod']
+[ 2026-01-25 20:21:46,001 ] 121 root - INFO - Numerical features: ['SeniorCitizen', 'tenure', 'MonthlyCharges', 'TotalCharges']
+[ 2026-01-25 20:21:46,001 ] 147 root - INFO - Created preprocessing pipeline with encoding, scaling, and imputation
+[ 2026-01-25 20:21:46,123 ] 211 root - INFO - Preprocessor fitted on training data
+[ 2026-01-25 20:21:46,257 ] 217 root - INFO - Features transformed using fitted preprocessor
+[ 2026-01-25 20:21:46,258 ] 230 root - INFO - Final train array shape: (16876, 31)
+[ 2026-01-25 20:21:46,258 ] 231 root - INFO - Final test array shape: (4220, 31)
+[ 2026-01-25 20:21:46,301 ] 36 root - INFO - Numpy array saved successfully at: artifacts\01_25_2026_20_21_32\data_transformation\transformed\train.npy
+[ 2026-01-25 20:21:46,304 ] 36 root - INFO - Numpy array saved successfully at: artifacts\01_25_2026_20_21_32\data_transformation\transformed\test.npy
+[ 2026-01-25 20:21:46,310 ] 80 root - INFO - Object saved successfully at: artifacts\01_25_2026_20_21_32\data_transformation\transformed_object\preprocessor.pkl
+[ 2026-01-25 20:21:46,316 ] 80 root - INFO - Object saved successfully at: final_model/preprocessor.pkl
+[ 2026-01-25 20:21:46,316 ] 255 root - INFO - Preprocessor object saved successfully
+[ 2026-01-25 20:21:46,316 ] 264 root - INFO - Data transformation completed successfully
+[ 2026-01-25 20:21:46,316 ] 265 root - INFO - Transformation Artifact: DataTransformationArtifact(transformed_object_file_path='artifacts\\01_25_2026_20_21_32\\data_transformation\\transformed_object\\preprocessor.pkl', transformed_train_file_path='artifacts\\01_25_2026_20_21_32\\data_transformation\\transformed\\train.npy', transformed_test_file_path='artifacts\\01_25_2026_20_21_32\\data_transformation\\transformed\\test.npy')
+[ 2026-01-25 20:21:46,319 ] 93 root - INFO - Data Transformation completed
+[ 2026-01-25 20:21:46,319 ] 94 root - INFO -    Transformed train: artifacts\01_25_2026_20_21_32\data_transformation\transformed\train.npy
+[ 2026-01-25 20:21:46,319 ] 95 root - INFO -    Transformed test: artifacts\01_25_2026_20_21_32\data_transformation\transformed\test.npy
+[ 2026-01-25 20:21:46,320 ] 96 root - INFO -    Preprocessor: artifacts\01_25_2026_20_21_32\data_transformation\transformed_object\preprocessor.pkl
+[ 2026-01-25 20:21:46,320 ] 99 root - INFO - 
+================================================================================
+[ 2026-01-25 20:21:46,320 ] 100 root - INFO - STEP 4: MODEL TRAINING
+[ 2026-01-25 20:21:46,320 ] 101 root - INFO - ================================================================================
+[ 2026-01-25 20:21:46,320 ] 46 root - INFO - Model Trainer Component initialized
+[ 2026-01-25 20:21:46,320 ] 179 root - INFO - Entered initiate_model_trainer method
+[ 2026-01-25 20:21:46,746 ] 186 root - INFO - Loading transformed train and test arrays
+[ 2026-01-25 20:21:46,763 ] 56 root - INFO - Numpy array loaded successfully from: artifacts\01_25_2026_20_21_32\data_transformation\transformed\train.npy
+[ 2026-01-25 20:21:46,778 ] 56 root - INFO - Numpy array loaded successfully from: artifacts\01_25_2026_20_21_32\data_transformation\transformed\test.npy
+[ 2026-01-25 20:21:46,778 ] 194 root - INFO - Train array shape: (16876, 31)
+[ 2026-01-25 20:21:46,778 ] 195 root - INFO - Test array shape: (4220, 31)
+[ 2026-01-25 20:21:46,778 ] 201 root - INFO - X_train shape: (16876, 30), y_train shape: (16876,)
+[ 2026-01-25 20:21:46,778 ] 202 root - INFO - X_test shape: (4220, 30), y_test shape: (4220,)
+[ 2026-01-25 20:21:46,785 ] 214 root - INFO - Original class distribution: {np.float64(0.0): np.int64(12391), np.float64(1.0): np.int64(4485)}
+[ 2026-01-25 20:21:46,785 ] 221 root - INFO - Imbalance ratio: 0.3620
+[ 2026-01-25 20:21:46,800 ] 226 root - INFO - Imbalanced dataset detected! Applying SMOTE...
+[ 2026-01-25 20:21:47,039 ] 232 root - INFO - Balanced class distribution: {np.float64(0.0): np.int64(12391), np.float64(1.0): np.int64(12391)}
+[ 2026-01-25 20:21:47,040 ] 233 root - INFO - SMOTE applied: 16876 -> 24782 samples
+[ 2026-01-25 20:21:47,047 ] 55 root - INFO - Evaluating 5 models
+[ 2026-01-25 20:21:47,047 ] 58 root - INFO - 
+==================================================
+[ 2026-01-25 20:21:47,047 ] 59 root - INFO - Training: Logistic Regression
+[ 2026-01-25 20:21:47,047 ] 60 root - INFO - ==================================================
+[ 2026-01-25 20:21:47,389 ] 69 root - INFO - Logistic Regression training completed
+[ 2026-01-25 20:21:47,452 ] 121 root - INFO - 
+Logistic Regression - Training Metrics:
+[ 2026-01-25 20:21:47,452 ] 122 root - INFO -   Accuracy:  0.7721
+[ 2026-01-25 20:21:47,452 ] 123 root - INFO -   F1-Score:  0.7717
+[ 2026-01-25 20:21:47,453 ] 124 root - INFO -   Precision: 0.7534
+[ 2026-01-25 20:21:47,453 ] 125 root - INFO -   Recall:    0.8089
+[ 2026-01-25 20:21:47,453 ] 126 root - INFO -   ROC-AUC:   0.7721
+[ 2026-01-25 20:21:47,453 ] 128 root - INFO - 
+Logistic Regression - Testing Metrics:
+[ 2026-01-25 20:21:47,453 ] 129 root - INFO -   Accuracy:  0.7661
+[ 2026-01-25 20:21:47,453 ] 130 root - INFO -   F1-Score:  0.7778
+[ 2026-01-25 20:21:47,453 ] 131 root - INFO -   Precision: 0.5402
+[ 2026-01-25 20:21:47,453 ] 132 root - INFO -   Recall:    0.8084
+[ 2026-01-25 20:21:47,453 ] 133 root - INFO -   ROC-AUC:   0.7796
+[ 2026-01-25 20:21:47,453 ] 58 root - INFO - 
+==================================================
+[ 2026-01-25 20:21:47,453 ] 59 root - INFO - Training: Decision Tree
+[ 2026-01-25 20:21:47,453 ] 60 root - INFO - ==================================================
+[ 2026-01-25 20:21:47,649 ] 69 root - INFO - Decision Tree training completed
+[ 2026-01-25 20:21:47,749 ] 121 root - INFO - 
+Decision Tree - Training Metrics:
+[ 2026-01-25 20:21:47,749 ] 122 root - INFO -   Accuracy:  0.8324
+[ 2026-01-25 20:21:47,749 ] 123 root - INFO -   F1-Score:  0.8320
+[ 2026-01-25 20:21:47,749 ] 124 root - INFO -   Precision: 0.8021
+[ 2026-01-25 20:21:47,749 ] 125 root - INFO -   Recall:    0.8825
+[ 2026-01-25 20:21:47,749 ] 126 root - INFO -   ROC-AUC:   0.8324
+[ 2026-01-25 20:21:47,749 ] 128 root - INFO - 
+Decision Tree - Testing Metrics:
+[ 2026-01-25 20:21:47,750 ] 129 root - INFO -   Accuracy:  0.7851
+[ 2026-01-25 20:21:47,750 ] 130 root - INFO -   F1-Score:  0.7948
+[ 2026-01-25 20:21:47,750 ] 131 root - INFO -   Precision: 0.5677
+[ 2026-01-25 20:21:47,750 ] 132 root - INFO -   Recall:    0.8030
+[ 2026-01-25 20:21:47,750 ] 133 root - INFO -   ROC-AUC:   0.7908
+[ 2026-01-25 20:21:47,750 ] 58 root - INFO - 
+==================================================
+[ 2026-01-25 20:21:47,750 ] 59 root - INFO - Training: Random Forest
+[ 2026-01-25 20:21:47,750 ] 60 root - INFO - ==================================================
+[ 2026-01-25 20:21:50,044 ] 69 root - INFO - Random Forest training completed
+[ 2026-01-25 20:21:50,539 ] 121 root - INFO - 
+Random Forest - Training Metrics:
+[ 2026-01-25 20:21:50,539 ] 122 root - INFO -   Accuracy:  0.9979
+[ 2026-01-25 20:21:50,539 ] 123 root - INFO -   F1-Score:  0.9979
+[ 2026-01-25 20:21:50,539 ] 124 root - INFO -   Precision: 0.9963
+[ 2026-01-25 20:21:50,539 ] 125 root - INFO -   Recall:    0.9995
+[ 2026-01-25 20:21:50,539 ] 126 root - INFO -   ROC-AUC:   0.9979
+[ 2026-01-25 20:21:50,539 ] 128 root - INFO - 
+Random Forest - Testing Metrics:
+[ 2026-01-25 20:21:50,539 ] 129 root - INFO -   Accuracy:  0.9858
+[ 2026-01-25 20:21:50,539 ] 130 root - INFO -   F1-Score:  0.9858
+[ 2026-01-25 20:21:50,539 ] 131 root - INFO -   Precision: 0.9741
+[ 2026-01-25 20:21:50,539 ] 132 root - INFO -   Recall:    0.9724
+[ 2026-01-25 20:21:50,540 ] 133 root - INFO -   ROC-AUC:   0.9815
+[ 2026-01-25 20:21:50,540 ] 58 root - INFO - 
+==================================================
+[ 2026-01-25 20:21:50,540 ] 59 root - INFO - Training: Gradient Boosting
+[ 2026-01-25 20:21:50,540 ] 60 root - INFO - ==================================================
+[ 2026-01-25 20:22:01,135 ] 69 root - INFO - Gradient Boosting training completed
+[ 2026-01-25 20:22:01,282 ] 121 root - INFO - 
+Gradient Boosting - Training Metrics:
+[ 2026-01-25 20:22:01,282 ] 122 root - INFO -   Accuracy:  0.9455
+[ 2026-01-25 20:22:01,282 ] 123 root - INFO -   F1-Score:  0.9455
+[ 2026-01-25 20:22:01,282 ] 124 root - INFO -   Precision: 0.9263
+[ 2026-01-25 20:22:01,282 ] 125 root - INFO -   Recall:    0.9680
+[ 2026-01-25 20:22:01,282 ] 126 root - INFO -   ROC-AUC:   0.9455
+[ 2026-01-25 20:22:01,282 ] 128 root - INFO - 
+Gradient Boosting - Testing Metrics:
+[ 2026-01-25 20:22:01,282 ] 129 root - INFO -   Accuracy:  0.8903
+[ 2026-01-25 20:22:01,282 ] 130 root - INFO -   F1-Score:  0.8924
+[ 2026-01-25 20:22:01,282 ] 131 root - INFO -   Precision: 0.7580
+[ 2026-01-25 20:22:01,283 ] 132 root - INFO -   Recall:    0.8627
+[ 2026-01-25 20:22:01,283 ] 133 root - INFO -   ROC-AUC:   0.8815
+[ 2026-01-25 20:22:01,283 ] 58 root - INFO - 
+==================================================
+[ 2026-01-25 20:22:01,283 ] 59 root - INFO - Training: AdaBoost
+[ 2026-01-25 20:22:01,283 ] 60 root - INFO - ==================================================
+[ 2026-01-25 20:22:03,645 ] 69 root - INFO - AdaBoost training completed
+[ 2026-01-25 20:22:04,112 ] 121 root - INFO - 
+AdaBoost - Training Metrics:
+[ 2026-01-25 20:22:04,112 ] 122 root - INFO -   Accuracy:  0.7884
+[ 2026-01-25 20:22:04,112 ] 123 root - INFO -   F1-Score:  0.7882
+[ 2026-01-25 20:22:04,112 ] 124 root - INFO -   Precision: 0.7702
+[ 2026-01-25 20:22:04,112 ] 125 root - INFO -   Recall:    0.8221
+[ 2026-01-25 20:22:04,112 ] 126 root - INFO -   ROC-AUC:   0.7884
+[ 2026-01-25 20:22:04,112 ] 128 root - INFO - 
+AdaBoost - Testing Metrics:
+[ 2026-01-25 20:22:04,112 ] 129 root - INFO -   Accuracy:  0.7732
+[ 2026-01-25 20:22:04,112 ] 130 root - INFO -   F1-Score:  0.7837
+[ 2026-01-25 20:22:04,112 ] 131 root - INFO -   Precision: 0.5514
+[ 2026-01-25 20:22:04,112 ] 132 root - INFO -   Recall:    0.7888
+[ 2026-01-25 20:22:04,112 ] 133 root - INFO -   ROC-AUC:   0.7782
+[ 2026-01-25 20:22:04,112 ] 151 root - INFO - 
+==================================================
+[ 2026-01-25 20:22:04,112 ] 152 root - INFO - MODEL COMPARISON - Test F1-Scores:
+[ 2026-01-25 20:22:04,113 ] 153 root - INFO - ==================================================
+[ 2026-01-25 20:22:04,113 ] 159 root - INFO - Logistic Regression       - F1: 0.7778, Accuracy: 0.7661
+[ 2026-01-25 20:22:04,113 ] 159 root - INFO - Decision Tree             - F1: 0.7948, Accuracy: 0.7851
+[ 2026-01-25 20:22:04,113 ] 159 root - INFO - Random Forest             - F1: 0.9858, Accuracy: 0.9858
+[ 2026-01-25 20:22:04,113 ] 159 root - INFO - Gradient Boosting         - F1: 0.8924, Accuracy: 0.8903
+[ 2026-01-25 20:22:04,113 ] 159 root - INFO - AdaBoost                  - F1: 0.7837, Accuracy: 0.7732
+[ 2026-01-25 20:22:04,113 ] 166 root - INFO - ==================================================
+[ 2026-01-25 20:22:04,113 ] 167 root - INFO - BEST MODEL: Random Forest
+[ 2026-01-25 20:22:04,113 ] 168 root - INFO -    F1-Score: 0.9858
+[ 2026-01-25 20:22:04,113 ] 169 root - INFO -    Accuracy: 0.9858
+[ 2026-01-25 20:22:04,113 ] 170 root - INFO - ==================================================
+[ 2026-01-25 20:22:04,132 ] 308 root - INFO - Best model meets required threshold!
+[ 2026-01-25 20:22:04,132 ] 311 root - INFO - Saving best model: Random Forest
+[ 2026-01-25 20:22:04,177 ] 80 root - INFO - Object saved successfully at: artifacts\01_25_2026_20_21_32\model_trainer\trained_model\model.pkl
+[ 2026-01-25 20:22:04,220 ] 80 root - INFO - Object saved successfully at: final_model/model.pkl
+[ 2026-01-25 20:22:04,221 ] 322 root - INFO - Model saved successfully
+[ 2026-01-25 20:22:04,221 ] 346 root - INFO - Model training completed successfully
+[ 2026-01-25 20:22:04,221 ] 347 root - INFO - Model Trainer Artifact: ModelTrainerArtifact(trained_model_file_path='artifacts\\01_25_2026_20_21_32\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9979016973822656, precision_score=0.9962995736465289, recall_score=0.999515777580502, roc_auc_score=np.float64(0.9979017028488419)), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.9857779428251912, precision_score=0.9741071428571428, recall_score=0.9723707664884136, roc_auc_score=np.float64(0.9815049442513082)))
+[ 2026-01-25 20:22:04,231 ] 110 root - INFO - Model Training completed
+[ 2026-01-25 20:22:04,231 ] 111 root - INFO -    Model saved: artifacts\01_25_2026_20_21_32\model_trainer\trained_model\model.pkl
+[ 2026-01-25 20:22:04,231 ] 114 root - INFO - 
+================================================================================
+[ 2026-01-25 20:22:04,231 ] 115 root - INFO - STEP 5: MODEL PUSHER (GCS + Vertex AI)
+[ 2026-01-25 20:22:04,231 ] 116 root - INFO - ================================================================================
+[ 2026-01-25 20:22:04,231 ] 83 root - INFO - Model Pusher Component initialized
+[ 2026-01-25 20:22:04,231 ] 257 root - INFO - Entered initiate_model_push method
+[ 2026-01-25 20:22:04,231 ] 260 root - INFO - Step 1: Loading trained model...
+[ 2026-01-25 20:22:04,231 ] 98 root - INFO - Loading model from: artifacts\01_25_2026_20_21_32\model_trainer\trained_model\model.pkl
+[ 2026-01-25 20:22:04,292 ] 103 root - INFO - Object loaded successfully from: artifacts\01_25_2026_20_21_32\model_trainer\trained_model\model.pkl
+[ 2026-01-25 20:22:04,292 ] 101 root - INFO - Model loaded successfully. Type: RandomForestClassifier
+[ 2026-01-25 20:22:04,292 ] 264 root - INFO - Step 2: Creating model metadata...
+[ 2026-01-25 20:22:04,292 ] 136 root - INFO - Model metadata created: {'timestamp': '2026-01-25T20:22:04.292646', 'model_type': 'RandomForestClassifier', 'model_path': 'artifacts\\01_25_2026_20_21_32\\model_trainer\\trained_model\\model.pkl', 'source_artifact': "ModelTrainerArtifact(trained_model_file_path='artifacts\\\\01_25_2026_20_21_32\\\\model_trainer\\\\trained_model\\\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9979016973822656, precision_score=0.9962995736465289, recall_score=0.999515777580502, roc_auc_score=np.float64(0.9979017028488419)), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.9857779428251912, precision_score=0.9741071428571428, recall_score=0.9723707664884136, roc_auc_score=np.float64(0.9815049442513082)))", 'metrics': {'f1_score': 0.9857779428251912, 'precision': 0.9741071428571428, 'recall': 0.9723707664884136, 'roc_auc': np.float64(0.9815049442513082)}}
+[ 2026-01-25 20:22:04,292 ] 268 root - INFO - Step 3: Pushing to GCS...
+[ 2026-01-25 20:22:04,293 ] 194 root - ERROR - google-cloud-storage not installed. Install with: pip install google-cloud-storage
+[ 2026-01-25 20:22:04,293 ] 272 root - WARNING - GCS push failed: cannot import name 'storage' from 'google.cloud' (unknown location). Continuing without GCS upload.
+[ 2026-01-25 20:22:04,293 ] 277 root - INFO - Step 4: Registering in Vertex AI...
+[ 2026-01-25 20:22:04,293 ] 243 root - ERROR - google-cloud-aiplatform not installed. Install with: pip install google-cloud-aiplatform
+[ 2026-01-25 20:22:04,293 ] 281 root - WARNING - Vertex AI registration failed: cannot import name 'aiplatform' from 'google.cloud' (unknown location). You may need to set up credentials.
+[ 2026-01-25 20:22:04,293 ] 291 root - INFO - Model Push completed
+[ 2026-01-25 20:22:04,294 ] 292 root - INFO -    GCS URI: PUSH_FAILED
+[ 2026-01-25 20:22:04,294 ] 293 root - INFO -    Vertex Model ID: REGISTRATION_FAILED
+[ 2026-01-25 20:22:04,299 ] 126 root - INFO - Model Push completed
+[ 2026-01-25 20:22:04,299 ] 127 root - INFO -    GCS URI: PUSH_FAILED
+[ 2026-01-25 20:22:04,299 ] 128 root - INFO -    Vertex Model ID: REGISTRATION_FAILED
+[ 2026-01-25 20:22:04,299 ] 134 root - INFO - 
+================================================================================
+[ 2026-01-25 20:22:04,299 ] 135 root - INFO - TRAINING PIPELINE COMPLETED SUCCESSFULLY!
+[ 2026-01-25 20:22:04,299 ] 136 root - INFO - ================================================================================

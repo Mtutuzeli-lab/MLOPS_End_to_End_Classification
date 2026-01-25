@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/784127305320032479/eba6425458314825ab281693ea558334/artifacts
+end_time: 1769364167836
+entry_point_name: ''
+experiment_id: '784127305320032479'
+lifecycle_stage: active
+run_id: eba6425458314825ab281693ea558334
+run_name: Decision Tree
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769364167533
+status: 3
+tags: []
+user_id: mtutu

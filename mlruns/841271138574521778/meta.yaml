@@ -1,0 +1,6 @@
+artifact_location: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/841271138574521778
+creation_time: 1769375152137
+experiment_id: '841271138574521778'
+last_update_time: 1769375152137
+lifecycle_stage: active
+name: batch_predictions

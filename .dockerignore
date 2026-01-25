@@ -1,0 +1,14 @@
+# Reduce Docker build context size
+.git/
+venv/
+__pycache__/
+*.pyc
+logs/
+artifacts/
+mlruns/
+Notebooks/
+PySpark_Demo/
+MLOps_End_to_End_Classification.egg-info/
+batch_predictions/
+Data/*.csv
+config/service-account-key.json

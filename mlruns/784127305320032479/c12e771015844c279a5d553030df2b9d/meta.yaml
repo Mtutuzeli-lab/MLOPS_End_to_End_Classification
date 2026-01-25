@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/784127305320032479/c12e771015844c279a5d553030df2b9d/artifacts
+end_time: 1769364461810
+entry_point_name: ''
+experiment_id: '784127305320032479'
+lifecycle_stage: active
+run_id: c12e771015844c279a5d553030df2b9d
+run_name: Logistic Regression
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769364461310
+status: 3
+tags: []
+user_id: mtutu

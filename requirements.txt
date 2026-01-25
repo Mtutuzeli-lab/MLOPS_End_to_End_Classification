@@ -7,15 +7,20 @@ ipykernel
 seaborn
 matplotlib
 plotly
-scikit-learn
+scikit-learn==1.6.1
 imbalanced-learn
 mlflow
 dagshub
+evidently
 
 # BigQuery dependencies
 google-cloud-bigquery
 pandas-gbq
 db-dtypes
+
+# GCS and Vertex AI dependencies
+google-cloud-storage
+google-cloud-aiplatform
 
 # PySpark dependencies
 pyspark

@@ -6,7 +6,6 @@ Deploys the model to Vertex AI Endpoint for serving predictions
 import os
 import sys
 from google.cloud import aiplatform
-from google.cloud.aiplatform import endpoints
 
 # Configuration
 PROJECT_ID = "mlops-churn-prediction-484819"
@@ -16,25 +15,14 @@ MODEL_DISPLAY_NAME = "telco-churn-model"
 BUCKET_URI = "gs://mlops-churn-models/telco-churn-model"
 
 def get_latest_model():
-    """Get the latest model from GCS"""
-    from google.cloud import storage
+    """Get the latest model from local directory"""
+    local_model_path = "final_model/model.pkl"
     
-    client = storage.Client(project=PROJECT_ID)
-    bucket = client.bucket("mlops-churn-models")
+    if not os.path.exists(local_model_path):
+        raise Exception(f"Model not found at {local_model_path}")
     
-    # List all model versions
-    blobs = list(bucket.list_blobs(prefix="telco-churn-model/"))
-    model_paths = [b.name for b in blobs if b.name.endswith("model.pkl")]
-    
-    if not model_paths:
-        raise Exception("No models found in GCS bucket")
-    
-    # Get latest (last one after sorting)
-    latest_model = sorted(model_paths)[-1]
-    gcs_uri = f"gs://mlops-churn-models/{latest_model}"
-    
-    print(f"✓ Latest model found: {gcs_uri}")
-    return gcs_uri
+    print(f"✓ Local model found: {local_model_path}")
+    return local_model_path
 
 
 def deploy_to_vertex_ai():

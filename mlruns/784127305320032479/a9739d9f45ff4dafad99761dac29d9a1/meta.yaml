@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/784127305320032479/a9739d9f45ff4dafad99761dac29d9a1/artifacts
+end_time: 1769365654616
+entry_point_name: ''
+experiment_id: '784127305320032479'
+lifecycle_stage: active
+run_id: a9739d9f45ff4dafad99761dac29d9a1
+run_name: Gradient Boosting
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769365642865
+status: 3
+tags: []
+user_id: mtutu

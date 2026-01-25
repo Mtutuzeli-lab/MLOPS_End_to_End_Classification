@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/mtutu/MLOps_End_to_End_Classification/mlruns/784127305320032479/cabc56f9fdc74156928a1f53b8c9ba39/artifacts
+end_time: 1769364918198
+entry_point_name: ''
+experiment_id: '784127305320032479'
+lifecycle_stage: active
+run_id: cabc56f9fdc74156928a1f53b8c9ba39
+run_name: Pipeline_Run
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769364900367
+status: 3
+tags: []
+user_id: mtutu

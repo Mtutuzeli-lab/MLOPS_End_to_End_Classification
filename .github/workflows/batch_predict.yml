@@ -1,0 +1,51 @@
+name: Batch Predict
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * *' # daily at 06:00 UTC
+
+jobs:
+  run-batch-prediction:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Create service account key
+        shell: bash
+        run: |
+          mkdir -p config
+          printf '%s' "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" > config/service-account-key.json
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run batch prediction (local model)
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: config/service-account-key.json
+          # Optional: DagsHub MLflow
+          MLFLOW_TRACKING_URI: ${{ secrets.MLFLOW_TRACKING_URI }}
+          MLFLOW_TRACKING_TOKEN: ${{ secrets.MLFLOW_TRACKING_TOKEN }}
+          MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
+        run: |
+          python batch_prediction.py
+
+      - name: Upload predictions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-predictions-csv
+          path: batch_predictions/*.csv
+
+      - name: Job summary
+        shell: bash
+        run: |
+          echo "### Batch Prediction Completed" >> $GITHUB_STEP_SUMMARY
+          ls -lh batch_predictions >> $GITHUB_STEP_SUMMARY

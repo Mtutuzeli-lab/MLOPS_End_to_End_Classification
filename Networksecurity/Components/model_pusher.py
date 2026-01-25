@@ -16,6 +16,29 @@ from Networksecurity.exception.exception import NetworkSecurityException
 from Networksecurity.logging.logger import logging
 from Networksecurity.utils.main_utils.utils import load_object
 
+# Import GCP packages at module level
+try:
+    from google.cloud import storage
+    from google.cloud import aiplatform
+    GCP_PACKAGES_AVAILABLE = True
+except ImportError as e:
+    logging.warning(f"GCP packages import failed: {e}")
+    # Try to install if missing
+    try:
+        import subprocess
+        logging.info("Attempting to install google-cloud-storage and google-cloud-aiplatform...")
+        subprocess.run([sys.executable, "-m", "pip", "install", "--quiet", 
+                       "google-cloud-storage", "google-cloud-aiplatform"], 
+                      check=True, capture_output=True)
+        logging.info("Installation successful, attempting import again...")
+        from google.cloud import storage
+        from google.cloud import aiplatform
+        GCP_PACKAGES_AVAILABLE = True
+        logging.info("GCP packages imported successfully after installation")
+    except Exception as install_error:
+        GCP_PACKAGES_AVAILABLE = False
+        logging.warning(f"Could not install GCP packages: {install_error}")
+
 
 @dataclass
 class ModelPusherConfig:
@@ -151,7 +174,8 @@ class ModelPusher:
             str: GCS URI of uploaded model
         """
         try:
-            from google.cloud import storage
+            if not GCP_PACKAGES_AVAILABLE:
+                raise ImportError("google-cloud-storage not installed. Install with: pip install google-cloud-storage")
             
             logging.info("Initializing GCS client...")
             
@@ -209,7 +233,8 @@ class ModelPusher:
             str: Vertex AI model ID
         """
         try:
-            from google.cloud import aiplatform
+            if not GCP_PACKAGES_AVAILABLE:
+                raise ImportError("google-cloud-aiplatform not installed. Install with: pip install google-cloud-aiplatform")
             
             logging.info("Initializing Vertex AI client...")
             

@@ -6,10 +6,11 @@ on:
     branches:
       - main
       - develop
-  # schedule:
-  #   # Run training daily at 2 AM UTC (automated retraining)
-  #   # DISABLED - uncomment when ready for automated training
-  #   - cron: '0 2 * * *'
+  schedule:
+    # Retrain weekly Sunday 2 AM UTC
+    - cron: '0 2 * * 0'
+    # Daily batch prediction at 3 AM UTC
+    - cron: '0 3 * * *'
   workflow_dispatch:  # Allow manual trigger from GitHub UI
 
 jobs:
@@ -103,3 +104,45 @@ jobs:
           echo "Deploying model to Vertex AI..."
           echo "Model already pushed to GCS and registered in Vertex AI by training job"
           echo "Deployment placeholder - can run deploy_to_vertex_ai.py here if needed"
+
+  batch-predict:
+    runs-on: ubuntu-latest
+    needs: deploy
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies (runtime only)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Setup Google Cloud Credentials
+        run: |
+          mkdir -p config
+          cat > config/service-account-key.json << 'EOF'
+          ${{ secrets.GCP_SA_KEY }}
+          EOF
+
+      - name: Run Batch Prediction
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/config/service-account-key.json
+        run: |
+          python batch_prediction.py
+
+      - name: Upload Batch Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: batch-predictions
+          path: |
+            batch_predictions/
+            logs/
+          retention-days: 14
